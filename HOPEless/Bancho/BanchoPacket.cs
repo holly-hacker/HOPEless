@@ -29,6 +29,8 @@ namespace HOPEless.Bancho
             Data = data;
         }
 
+        public override string ToString() => $"Type: {Type}, Data length: {Data?.Length ?? 0}";
+
         public void ReadFromStream(CustomBinaryReader r)
         {
             Type = (PacketType)r.ReadInt16();
