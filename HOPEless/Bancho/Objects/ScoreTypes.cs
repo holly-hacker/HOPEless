@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HOPEless.Extensions;
 using HOPEless.osu;
 
 namespace HOPEless.Bancho.Objects
@@ -22,6 +23,9 @@ namespace HOPEless.Bancho.Objects
         public bool UsingScoreV2;
         public double ComboPortion;
         public double BonusPortion;
+
+        public BanchoScoreFrame() { }
+        public BanchoScoreFrame(byte[] data) => this.Populate(data);
 
         public void ReadFromStream(CustomBinaryReader r)
         {
@@ -75,6 +79,9 @@ namespace HOPEless.Bancho.Objects
         public ButtonState ButtonState;
         public int Time;
 
+        public BanchoReplayFrame() { }
+        public BanchoReplayFrame(byte[] data) => this.Populate(data);
+
         public void ReadFromStream(CustomBinaryReader r)
         {
             ButtonState = (ButtonState)r.ReadByte();
@@ -100,6 +107,9 @@ namespace HOPEless.Bancho.Objects
         public BanchoScoreFrame CurrentScoreState;
         public ReplayAction Action;
         public int SpectatedPlayerId;   //only if action is WatchingOther
+
+        public BanchoReplayFrameBundle() { }
+        public BanchoReplayFrameBundle(byte[] data) => this.Populate(data);
 
         public void ReadFromStream(CustomBinaryReader r)
         {

@@ -1,4 +1,5 @@
-﻿using HOPEless.osu;
+﻿using HOPEless.Extensions;
+using HOPEless.osu;
 
 namespace HOPEless.Bancho.Objects
 {
@@ -26,6 +27,9 @@ namespace HOPEless.Bancho.Objects
         public int Seed;
 
         public string GamePassword; //can be null
+
+        public BanchoMultiplayerMatch() { }
+        public BanchoMultiplayerMatch(byte[] data) => this.Populate(data);
 
         public void ReadFromStream(CustomBinaryReader r)
         {

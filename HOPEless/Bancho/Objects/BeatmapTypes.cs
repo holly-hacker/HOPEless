@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HOPEless.Extensions;
 using HOPEless.osu;
 
 namespace HOPEless.Bancho.Objects
@@ -11,7 +12,10 @@ namespace HOPEless.Bancho.Objects
 
         private readonly BanchoStringList _filenames = new BanchoStringList();
         private readonly BanchoIntList _beatmapIds = new BanchoIntList();
-        
+
+        public BanchoBeatmapInfoRequest() { }
+        public BanchoBeatmapInfoRequest(byte[] data) => this.Populate(data);
+
         public void ReadFromStream(CustomBinaryReader r)
         {
             _filenames.ReadFromStream(r);

@@ -1,4 +1,5 @@
-﻿using HOPEless.osu;
+﻿using HOPEless.Extensions;
+using HOPEless.osu;
 
 namespace HOPEless.Bancho.Objects
 {
@@ -6,6 +7,9 @@ namespace HOPEless.Bancho.Objects
     {
         public string Sender, Message, Channel;
         public int SenderId;
+
+        public BanchoChatMessage() { }
+        public BanchoChatMessage(byte[] data) => this.Populate(data);
 
         public void ReadFromStream(CustomBinaryReader r)
         {
@@ -28,6 +32,9 @@ namespace HOPEless.Bancho.Objects
     {
         public string Name, Topic;
         public short UserCount;
+
+        public BanchoChatChannel() { }
+        public BanchoChatChannel(byte[] data) => this.Populate(data);
 
         public void ReadFromStream(CustomBinaryReader r)
         {

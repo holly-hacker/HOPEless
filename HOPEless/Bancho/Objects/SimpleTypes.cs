@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HOPEless.Extensions;
 using HOPEless.osu;
 
 namespace HOPEless.Bancho.Objects
@@ -6,6 +7,8 @@ namespace HOPEless.Bancho.Objects
     public class BanchoInt : IBanchoSerializable
     {
         public int Value;
+        public BanchoInt() { }
+        public BanchoInt(byte[] data) => this.Populate(data);
         public void ReadFromStream(CustomBinaryReader r) => Value = r.ReadInt32();
         public void WriteToStream(CustomBinaryWriter w) => w.Write(Value);
     }
@@ -13,6 +16,9 @@ namespace HOPEless.Bancho.Objects
     public class BanchoIntList : IBanchoSerializable
     {
         public List<int> Value = new List<int>();
+
+        public BanchoIntList() { }
+        public BanchoIntList(byte[] data) => this.Populate(data);
 
         public void ReadFromStream(CustomBinaryReader r)
         {
@@ -32,6 +38,8 @@ namespace HOPEless.Bancho.Objects
     public class BanchoString : IBanchoSerializable
     {
         public string Value;
+        public BanchoString() { }
+        public BanchoString(byte[] data) => this.Populate(data);
         public void ReadFromStream(CustomBinaryReader r) => Value = r.ReadString();
         public void WriteToStream(CustomBinaryWriter w) => w.Write(Value);
     }
@@ -39,6 +47,9 @@ namespace HOPEless.Bancho.Objects
     public class BanchoStringList : IBanchoSerializable
     {
         public List<string> Value = new List<string>();
+
+        public BanchoStringList() { }
+        public BanchoStringList(byte[] data) => this.Populate(data);
 
         public void ReadFromStream(CustomBinaryReader r)
         {

@@ -1,4 +1,5 @@
-﻿using HOPEless.osu;
+﻿using HOPEless.Extensions;
+using HOPEless.osu;
 
 namespace HOPEless.Bancho.Objects
 {
@@ -12,6 +13,9 @@ namespace HOPEless.Bancho.Objects
         public long TotalScore;
         public int Rank;
         public short Performance;
+
+        public BanchoUserData() { }
+        public BanchoUserData(byte[] data) => this.Populate(data);
 
         public void ReadFromStream(CustomBinaryReader r)
         {
@@ -46,6 +50,9 @@ namespace HOPEless.Bancho.Objects
         public Mods CurrentMods;
         public PlayModes PlayMode;
         public int BeatmapId;
+        
+        public BanchoUserStatus() { }
+        public BanchoUserStatus(byte[] data) => this.Populate(data);
 
         public void ReadFromStream(CustomBinaryReader r)
         {
@@ -80,6 +87,9 @@ namespace HOPEless.Bancho.Objects
         public float Longitude;
         public float Latitude;
         public int Rank;
+
+        public BanchoUserPresence() { }
+        public BanchoUserPresence(byte[] data) => this.Populate(data);
 
         public void ReadFromStream(CustomBinaryReader r)
         {
@@ -117,6 +127,10 @@ namespace HOPEless.Bancho.Objects
     {
         public int UserId;
         public UserQuitType QuitType;
+
+
+        public BanchoUserQuit() { }
+        public BanchoUserQuit(byte[] data) => this.Populate(data);
 
         public void ReadFromStream(CustomBinaryReader r)
         {
