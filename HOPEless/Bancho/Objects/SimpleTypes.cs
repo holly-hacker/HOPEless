@@ -12,7 +12,7 @@ namespace HOPEless.Bancho.Objects
 
     public class BanchoIntList : IBanchoSerializable
     {
-        public List<int> Value;
+        public List<int> Value = new List<int>();
 
         public void ReadFromStream(CustomBinaryReader r)
         {
@@ -38,7 +38,7 @@ namespace HOPEless.Bancho.Objects
 
     public class BanchoStringList : IBanchoSerializable
     {
-        public List<string> Value;
+        public List<string> Value = new List<string>();
 
         public void ReadFromStream(CustomBinaryReader r)
         {
