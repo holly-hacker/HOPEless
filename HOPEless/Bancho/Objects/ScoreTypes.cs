@@ -106,14 +106,19 @@ namespace HOPEless.Bancho.Objects
         public List<BanchoReplayFrame> ReplayFrames;
         public BanchoScoreFrame CurrentScoreState;
         public ReplayAction Action;
-        public int SpectatedPlayerId;   //only if action is WatchingOther
+
+        /// <summary> 
+        /// Could be either spectator ID (if <seealso cref="Action"/> is 
+        /// <seealso cref="ReplayAction.WatchingOther"/>) or RNG seed (otherwise).
+        /// </summary>
+        public int ExtraData;
 
         public BanchoReplayFrameBundle() { }
         public BanchoReplayFrameBundle(byte[] data) => this.Populate(data);
 
         public void ReadFromStream(CustomBinaryReader r)
         {
-            SpectatedPlayerId = r.ReadInt32();
+            ExtraData = r.ReadInt32();
 
             ReplayFrames = new List<BanchoReplayFrame>();
             int length = r.ReadUInt16();
@@ -130,7 +135,7 @@ namespace HOPEless.Bancho.Objects
 
         public void WriteToStream(CustomBinaryWriter w)
         {
-            w.Write(SpectatedPlayerId);
+            w.Write(ExtraData);
             w.Write((ushort)ReplayFrames.Count);
             foreach (BanchoReplayFrame f in ReplayFrames) f.WriteToStream(w);
             w.Write((byte)Action);

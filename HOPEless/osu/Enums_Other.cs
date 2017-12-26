@@ -46,7 +46,7 @@
         /// User is spectating another player.
         /// <para>
         /// The spectated player's id can be found in <seealso 
-        /// cref="HOPEless.Bancho.Objects.BanchoReplayFrameBundle.SpectatedPlayerId"/>.
+        /// cref="Bancho.Objects.BanchoReplayFrameBundle.ExtraData"/>.
         /// </para>
         /// </summary>
         WatchingOther
