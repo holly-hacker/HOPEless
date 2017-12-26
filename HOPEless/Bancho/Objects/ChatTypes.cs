@@ -11,6 +11,14 @@ namespace HOPEless.Bancho.Objects
         public BanchoChatMessage() { }
         public BanchoChatMessage(byte[] data) => this.Populate(data);
 
+        public BanchoChatMessage(string sender, string message, string channel, int senderId)
+        {
+            Sender = sender;
+            Message = message;
+            Channel = channel;
+            SenderId = senderId;
+        }
+
         public void ReadFromStream(CustomBinaryReader r)
         {
             Sender = r.ReadString();
@@ -35,6 +43,13 @@ namespace HOPEless.Bancho.Objects
 
         public BanchoChatChannel() { }
         public BanchoChatChannel(byte[] data) => this.Populate(data);
+
+        public BanchoChatChannel(string name, string topic, short userCount)
+        {
+            Name = name;
+            Topic = topic;
+            UserCount = userCount;
+        }
 
         public void ReadFromStream(CustomBinaryReader r)
         {

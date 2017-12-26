@@ -132,6 +132,12 @@ namespace HOPEless.Bancho.Objects
         public BanchoUserQuit() { }
         public BanchoUserQuit(byte[] data) => this.Populate(data);
 
+        public BanchoUserQuit(int userId, UserQuitType quitType = UserQuitType.FullDisconnect)
+        {
+            UserId = userId;
+            QuitType = quitType;
+        }
+
         public void ReadFromStream(CustomBinaryReader r)
         {
             UserId = r.ReadInt32();

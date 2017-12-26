@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using HOPEless.Extensions;
 using HOPEless.osu;
 
@@ -82,6 +83,14 @@ namespace HOPEless.Bancho.Objects
         public BanchoReplayFrame() { }
         public BanchoReplayFrame(byte[] data) => this.Populate(data);
 
+        public BanchoReplayFrame(ButtonState buttons, float mx, float my, int time)
+        {
+            ButtonState = buttons;
+            MouseX = mx;
+            MouseY = my;
+            Time = time;
+        }
+
         public void ReadFromStream(CustomBinaryReader r)
         {
             ButtonState = (ButtonState)r.ReadByte();
@@ -115,6 +124,15 @@ namespace HOPEless.Bancho.Objects
 
         public BanchoReplayFrameBundle() { }
         public BanchoReplayFrameBundle(byte[] data) => this.Populate(data);
+
+        public BanchoReplayFrameBundle(ReplayAction action, BanchoScoreFrame scoreFrame,
+            IEnumerable<BanchoReplayFrame> replayFrames, int extra = 0)
+        {
+            Action = action;
+            CurrentScoreState = scoreFrame;
+            ReplayFrames = replayFrames.ToList();
+            ExtraData = extra;
+        }
 
         public void ReadFromStream(CustomBinaryReader r)
         {

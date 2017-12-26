@@ -16,6 +16,12 @@ namespace HOPEless.Bancho.Objects
         public BanchoBeatmapInfoRequest() { }
         public BanchoBeatmapInfoRequest(byte[] data) => this.Populate(data);
 
+        public BanchoBeatmapInfoRequest(IEnumerable<string> filenames, IEnumerable<int> beatmapIds)
+        {
+            _filenames = new BanchoStringList(filenames);
+            _beatmapIds = new BanchoIntList(beatmapIds);
+        }
+
         public void ReadFromStream(CustomBinaryReader r)
         {
             _filenames.ReadFromStream(r);

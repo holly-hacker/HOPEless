@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using HOPEless.Extensions;
 using HOPEless.osu;
 
@@ -9,6 +10,7 @@ namespace HOPEless.Bancho.Objects
         public int Value;
         public BanchoInt() { }
         public BanchoInt(byte[] data) => this.Populate(data);
+        public BanchoInt(int val) => Value = val;
         public void ReadFromStream(CustomBinaryReader r) => Value = r.ReadInt32();
         public void WriteToStream(CustomBinaryWriter w) => w.Write(Value);
     }
@@ -19,6 +21,7 @@ namespace HOPEless.Bancho.Objects
 
         public BanchoIntList() { }
         public BanchoIntList(byte[] data) => this.Populate(data);
+        public BanchoIntList(IEnumerable<int> val) => Value = val.ToList();
 
         public void ReadFromStream(CustomBinaryReader r)
         {
@@ -40,6 +43,7 @@ namespace HOPEless.Bancho.Objects
         public string Value;
         public BanchoString() { }
         public BanchoString(byte[] data) => this.Populate(data);
+        public BanchoString(string val) => Value = val;
         public void ReadFromStream(CustomBinaryReader r) => Value = r.ReadString();
         public void WriteToStream(CustomBinaryWriter w) => w.Write(Value);
     }
@@ -50,6 +54,7 @@ namespace HOPEless.Bancho.Objects
 
         public BanchoStringList() { }
         public BanchoStringList(byte[] data) => this.Populate(data);
+        public BanchoStringList(IEnumerable<string> val) => Value = val.ToList();
 
         public void ReadFromStream(CustomBinaryReader r)
         {
