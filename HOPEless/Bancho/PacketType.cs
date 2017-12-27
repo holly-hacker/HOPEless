@@ -4,8 +4,6 @@ namespace HOPEless.Bancho
 {
     public enum PacketType : short
     {
-        //TODO: if data is a simple type, document what it means?
-
         /// <summary>
         /// Sends the current status of the user to the server.
         /// <para>Data: <see cref="BanchoUserStatus"/></para>
@@ -19,19 +17,20 @@ namespace HOPEless.Bancho
         ClientChatMessagePublic,
 
         /// <summary>
-        /// Close the Bancho connection
+        /// Close the Bancho connection. Parameter stands for quit reason: 0
+        /// for normal exit and 1 for update.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientDisconnect,
 
         /// <summary>
-        /// Ask the server for our own user data
-        /// <para>Expected response: TODO</para>
+        /// Ask the server for our own user data.
+        /// <para>Expected response: <seealso cref="ServerUserData"/></para>
         /// </summary>
         ClientStatusRequestOwn,
 
         /// <summary>
-        /// Respond to Bancho's ping command.
+        /// Response to Bancho's ping command.
         /// <para>Response to: <see cref="ServerPing"/></para>
         /// </summary>
         ClientPong,
@@ -61,21 +60,23 @@ namespace HOPEless.Bancho
         ServerPing,
 
         /// <summary>
-        /// Informs client that somebody's username has changed
-        /// <para>Data: TODO</para>
+        /// Informs client that somebody's username has changed. Data is in 
+        /// format $"{oldUsername}>>>>{newUsername}".
+        /// <para>Data: <seealso cref="BanchoString"/></para>
         /// </summary>
         ServerUserNameChanged,
 
         /// <summary>
-        /// Originally meant for name changes, now unused.
+        /// Originally an alternative to <seealso cref="ServerUserQuit"/>, now 
+        /// unused.
         /// </summary>
         ServerUnused2,
 
         /// <summary>
         /// Tell the client data about a certain user, including Rank, 
         /// Accuracy, Score, <seealso cref="BanchoUserStatus"/>, and more.
-        /// <para>Data: <see cref="BanchoUserData"/></para> TODO: proper newline instead of 2 para's 
-        /// <para>Response to: TODO</para>
+        /// <para>Data: <see cref="BanchoUserData"/></para>
+        /// <para>Response to: <seealso cref="ClientStatusRequestOwn"/></para>
         /// </summary>
         ServerUserData,
 
@@ -86,13 +87,15 @@ namespace HOPEless.Bancho
         ServerUserQuit,
 
         /// <summary>
-        /// Inform the client that a spectator has joined.
+        /// Inform the client that a spectator has joined. The parameter is the
+        /// spectator's user ID.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerSpectateSpectatorJoined,
 
         /// <summary>
-        /// Inform the client that a spectator has left.
+        /// Inform the client that a spectator has left.The parameter is the
+        /// spectator's user ID.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerSpectateSpectatorLeft,
@@ -105,13 +108,15 @@ namespace HOPEless.Bancho
         ServerSpectateData,
 
         /// <summary>
-        /// Inform the server that we started spectating.
+        /// Inform the server that we started spectating. The parameter is the
+        /// userID of the player we started spectating.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientSpectateStart,
 
         /// <summary>
-        /// Inform the server that we stopped spectating.
+        /// Inform the server that we stopped spectating. The parameter is the
+        /// userID of the player we stopped spectating.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientSpectateStop,
@@ -124,7 +129,7 @@ namespace HOPEless.Bancho
         ClientSpectateData,
 
         /// <summary>
-        /// Tell the client that they should check for client updates.
+        /// Tell the client that they should check for game client updates.
         /// </summary>
         ServerUpdateCheck,
 
@@ -140,7 +145,8 @@ namespace HOPEless.Bancho
         ClientSpectateNoBeatmap,
 
         /// <summary>
-        /// Inform the client that a spectator does not have your beatmap.
+        /// Inform the client that a spectator does not have your beatmap. The
+        /// parameter is the spectator's user ID.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerSpectateNoBeatmap,
@@ -151,13 +157,14 @@ namespace HOPEless.Bancho
         ServerChatFocus,
 
         /// <summary>
-        /// Creates a notification bubble in the client.
+        /// Creates a notification bubble in the client. The parameter is the
+        /// text to display.
         /// <para>Data: <see cref="BanchoString"/></para>
         /// </summary>
         ServerNotification,
 
         /// <summary>
-        /// Sends a chat message to a user..
+        /// Sends a chat message to the user.
         /// <para>Data: <see cref="BanchoChatMessage"/></para>
         /// </summary>
         ClientChatMessagePrivate,
@@ -176,7 +183,8 @@ namespace HOPEless.Bancho
         ServerMultiMatchNew,
 
         /// <summary>
-        /// Informs the client that a multiplayer match has been deleted.
+        /// Informs the client that a multiplayer match has been deleted. The
+        /// parameter is the ID of the deleted match.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerMultiMatchDelete,
@@ -223,18 +231,19 @@ namespace HOPEless.Bancho
         /// <summary>
         /// Tell the client they joined the match.
         /// <para>Data: <see cref="BanchoMultiplayerMatch"/></para>
-        /// TODO: response to what
+        /// <para>Response to: <seealso cref="ClientMultiMatchCreate"/> or <seealso cref="ClientMultiMatchJoin"/></para>
         /// </summary>
         ServerMultiMatchJoinSuccess,
 
         /// <summary>
         /// Tell the client they failed to join the match.
-        /// TODO: response to what
+        /// <para>Response to: <seealso cref="ClientMultiMatchCreate"/> or <seealso cref="ClientMultiMatchJoin"/></para>
         /// </summary>
         ServerMultiMatchJoinFail,
 
         /// <summary>
-        /// Tell bancho we changed to a different slot.
+        /// Tell bancho we changed to a different slot. The parameter is the
+        /// slot index. TODO: zero-based?
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientMultiSlotChange,
@@ -245,7 +254,7 @@ namespace HOPEless.Bancho
         ClientMultiReady,
 
         /// <summary>
-        /// Tell bancho we locked a slot
+        /// Tell bancho we locked a slot. The parameter is the slot index. TODO
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientMultiSlotLock,
@@ -257,13 +266,15 @@ namespace HOPEless.Bancho
         ClientMultiSettingsChange,
 
         /// <summary>
-        /// Inform the client that another spectator joined.
+        /// Inform the client that another spectator joined. The parameter is
+        /// the new spectator's user ID.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerSpectateOtherSpectatorJoined,
 
         /// <summary>
-        /// Inform the client that another spectator left.
+        /// Inform the client that another spectator left. The parameter is the 
+        /// new spectator's user ID.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerSpectateOtherSpectatorLeft,
@@ -291,23 +302,25 @@ namespace HOPEless.Bancho
         ClientMultiScoreUpdate,
 
         /// <summary>
-        /// Inform Bancho of our score.
+        /// Inform Bancho of our score in the current multiplayer match.
         /// <para>Data: <see cref="BanchoScoreFrame"/></para>
         /// </summary>
         ServerMultiScoreUpdate,
 
         /// <summary>
-        /// Tell bancho that we finished the match.
+        /// Tell bancho that we finished the multiplayer match.
         /// </summary>
         ServerMultiMatchCompleted,
 
         /// <summary>
-        /// Tell the client we received host privileges.
+        /// Tell the client they received host privileges in the multiplayer
+        /// match.
         /// </summary>
         ServerMultiHostTransfer,
 
         /// <summary>
-        /// Inform the server that we changed out current mods.
+        /// Inform the server that we changed our current mods for this 
+        /// multiplayer match.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientMultiChangeMods,
@@ -324,7 +337,8 @@ namespace HOPEless.Bancho
         ServerMultiAllPlayersLoaded,
 
         /// <summary>
-        /// Tell bancho we don't have the selected beatmap.
+        /// Tell bancho we don't have the selected beatmap for this multiplayer
+        /// match.
         /// </summary>
         ClientMultiBeatmapMissing,
 
@@ -334,12 +348,13 @@ namespace HOPEless.Bancho
         ClientMultiNotReady,
 
         /// <summary>
-        /// Tell bancho we failed. Better luck next time!
+        /// Tell bancho we failed (reached 0 HP) in this multiplayer match.
         /// </summary>
         ClientMultiFailed,
 
         /// <summary>
-        /// Tell the client that somebody failed. What a loser.
+        /// Tell the client that somebody failed. The parameter is the failed 
+        /// player's user ID.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerMultiOtherFailed,
@@ -357,12 +372,12 @@ namespace HOPEless.Bancho
         ClientMultiBeatmapAvailable,
 
         /// <summary>
-        /// Ask bancho to skip the intro of a song.
+        /// Tell bancho we want to skip the intro of a song.
         /// </summary>
         ClientMultiSkipRequest,
 
         /// <summary>
-        /// Tell the client that everybody skipped.
+        /// Tell the client that everybody skipped the intro of a song.
         /// </summary>
         ServerMultiSkip,
 
@@ -372,32 +387,44 @@ namespace HOPEless.Bancho
         ServerUnused7,
 
         /// <summary>
-        /// Tell bancho we want to join a chat channel.
+        /// Tell bancho we want to join a chat channel. The parameter is the 
+        /// name of the chat channel. If it is prefixed by a hash (#), it is a
+        /// public channel. Otherwise, it is a PM channel.
         /// <para>Data: <see cref="BanchoString"/></para>
         /// </summary>
         ClientChatChannelJoin,
 
         /// <summary>
-        /// Tell the client that they succesfully joined a channel.
+        /// Tell the client that they succesfully joined a channel. The 
+        /// parameter is the name of the chat channel. If it is prefixed by a 
+        /// hash character (#), it is a public channel. Otherwise, it is a PM 
+        /// channel.
         /// <para>Data: <see cref="BanchoString"/></para>
         /// </summary>
         ServerChatChannelJoinSuccess,
 
         /// <summary>
-        /// Tell the client that a chat channel is available
+        /// Tell the client that a chat channel is available. The parameter is 
+        /// the name of the chat channel. If it is prefixed by a hash (#), it 
+        /// is a public channel. Otherwise, it is a PM channel.
         /// <para>Data: <see cref="BanchoChatChannel"/></para>
         /// </summary>
         ServerChatChannelAvailable,
 
         /// <summary>
-        /// Tell the client that they no longer have access to a channel.
+        /// Tell the client that they no longer have access to a channel. The 
+        /// parameter is the name of the chat channel. If it is prefixed by a 
+        /// hash character (#), it is a public channel. Otherwise, it is a PM 
+        /// channel.
         /// <para>Data: <see cref="BanchoString"/></para>
         /// </summary>
         ServerChatChannelRevoked,
 
         /// <summary>
         /// Tell the client that a chat channel is available, and they should
-        /// auto-join it.
+        /// auto-join it. The parameter is the name of the chat channel. If it 
+        /// is prefixed by a hash character (#), it is a public channel. 
+        /// Otherwise, it is a PM channel.
         /// <para>Data: <see cref="BanchoChatChannel"/></para>
         /// </summary>
         ServerChatChannelAvailableAutojoin,
@@ -417,44 +444,51 @@ namespace HOPEless.Bancho
 
         /// <summary>
         /// Tell the server we want to transfer the host privileges to somebody
-        /// else.
+        /// else. The parameter is the user ID of the player to receive host 
+        /// privileges.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientMultiTransferHost,
 
         /// <summary>
-        /// Tell client what permissions we have. Response to login packet.
+        /// Tell client what permissions they have. Response to login packet. 
+        /// TODO: check if parameter is just permissions, or permissions & mode
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerUserPermissions,
 
         /// <summary>
-        /// Tell the server who their friends are.
+        /// Tell the server who their friends are. The parameter contains a 
+        /// list of friend user ID's.
         /// <para>Data: <see cref="BanchoIntList"/></para>
         /// </summary>
         ServerFriendsList,
 
         /// <summary>
-        /// Tell the server we just made a new friend!
+        /// Tell the server we just made a new friend! The parameter is the 
+        /// user ID of our new friend.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientFriendsAdd,
 
         /// <summary>
-        /// Tell the server we just lost a friend!
+        /// Tell the server we just lost a friend! The parameter is the user ID
+        /// of that non-friend.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientFriendsRemove,
 
         /// <summary>
-        /// Tell the client what Bancho version we are.
+        /// Tell the client what Bancho version we are. The parameter is that 
+        /// version.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerBanchoVersion,
 
         /// <summary>
         /// Tell the client to show a clickable image on the bottom of the main
-        /// menu, which acts as a hyperlink.
+        /// menu, which acts as a hyperlink. The parameter is a string in 
+        /// format $"{imageUrl|linkUrl}".
         /// <para>Data: <see cref="BanchoString"/></para>
         /// </summary>
         ServerMainMenuNews,
@@ -466,7 +500,8 @@ namespace HOPEless.Bancho
         ClientMultiChangeTeam,
 
         /// <summary>
-        /// Tell the server we left a chat channel.
+        /// Tell the server we left a chat channel. The parameter is the name
+        /// of that channel.
         /// <para>Data: <see cref="BanchoString"/></para>
         /// </summary>
         ClientChatChannelLeave,
@@ -485,13 +520,14 @@ namespace HOPEless.Bancho
         ServerUnused8,
 
         /// <summary>
-        /// Another player has requested a skip.
+        /// Another player has requested a skip. The parameter is said player's
+        /// user ID.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerMultiSkipRequestOther,
 
         /// <summary>
-        /// The same as /away in IRC.
+        /// The same as /away in IRC. TODO: proper
         /// <para>Data: <see cref="BanchoString"/></para>
         /// </summary>
         ClientAway,
@@ -515,13 +551,15 @@ namespace HOPEless.Bancho
         ClientUserStatsRequest,
 
         /// <summary>
-        /// A bancho restart is scheduled.
+        /// A bancho restart is scheduled. The parameter is how many minutes(?)
+        /// are left before the restart.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerRestart,
 
         /// <summary>
-        /// Tell server to send a multiplayer invite to a player.
+        /// Tell server to send a multiplayer invite to a player. The parameter
+        /// is the user ID of the recepient.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientMultiInvite,
@@ -545,7 +583,8 @@ namespace HOPEless.Bancho
         ClientMultiChangePassword,
 
         /// <summary>
-        /// Tell the client that the password has been changed.
+        /// Tell the client that the password for the multiplayer match has 
+        /// been changed.
         /// <para>Data: <see cref="BanchoString"/></para>
         /// </summary>
         ServerMultiChangePassword,
