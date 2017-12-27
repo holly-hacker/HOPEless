@@ -1,22 +1,21 @@
 ﻿using System.IO;
-using HOPEless.Bancho;
-using HOPEless.osu;
+using osu.Shared.Serialization;
 
 namespace HOPEless.Extensions
 {
     public static class Extensions
     {
-        public static void Populate(this IBanchoSerializable s, byte[] data)
+        public static void Populate(this ISerializable s, byte[] data)
         {
-            using (MemoryStream stream = new MemoryStream(data))
-            using (CustomBinaryReader r = new CustomBinaryReader(stream))
+            using (var stream = new MemoryStream(data))
+            using (var r = new SerializationReader(stream))
                 s.ReadFromStream(r);
         }
 
-        public static byte[] Serialize(this IBanchoSerializable s)
+        public static byte[] Serialize(this ISerializable s)
         {
-            using (MemoryStream stream = new MemoryStream()) {
-                using (CustomBinaryWriter w = new CustomBinaryWriter(stream))
+            using (var stream = new MemoryStream()) {
+                using (var w = new SerializationWriter(stream))
                     s.WriteToStream(w);
                 return stream.ToArray();
             }

@@ -1,9 +1,9 @@
 ﻿using HOPEless.Extensions;
-using HOPEless.osu;
+using osu.Shared.Serialization;
 
 namespace HOPEless.Bancho.Objects
 {
-    public class BanchoChatMessage : IBanchoSerializable
+    public class BanchoChatMessage : ISerializable
     {
         public string Sender, Message, Channel;
         public int SenderId;
@@ -19,7 +19,7 @@ namespace HOPEless.Bancho.Objects
             SenderId = senderId;
         }
 
-        public void ReadFromStream(CustomBinaryReader r)
+        public void ReadFromStream(SerializationReader r)
         {
             Sender = r.ReadString();
             Message = r.ReadString();
@@ -27,7 +27,7 @@ namespace HOPEless.Bancho.Objects
             SenderId = r.ReadInt32();
         }
 
-        public void WriteToStream(CustomBinaryWriter w)
+        public void WriteToStream(SerializationWriter w)
         {
             w.Write(Sender);
             w.Write(Message);
@@ -36,7 +36,7 @@ namespace HOPEless.Bancho.Objects
         }
     }
 
-    public class BanchoChatChannel : IBanchoSerializable
+    public class BanchoChatChannel : ISerializable
     {
         public string Name, Topic;
         public short UserCount;
@@ -51,14 +51,14 @@ namespace HOPEless.Bancho.Objects
             UserCount = userCount;
         }
 
-        public void ReadFromStream(CustomBinaryReader r)
+        public void ReadFromStream(SerializationReader r)
         {
             Name = r.ReadString();
             Topic = r.ReadString();
             UserCount = r.ReadInt16();
         }
 
-        public void WriteToStream(CustomBinaryWriter w)
+        public void WriteToStream(SerializationWriter w)
         {
             w.Write(Name);
             w.Write(Topic);

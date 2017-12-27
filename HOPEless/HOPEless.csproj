@@ -8,4 +8,8 @@
     <Folder Include="Properties\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\osu.Shared\osu.Shared\osu.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

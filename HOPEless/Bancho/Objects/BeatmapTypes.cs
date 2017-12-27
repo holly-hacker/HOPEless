@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using HOPEless.Extensions;
-using HOPEless.osu;
+using osu.Shared.Serialization;
 
 namespace HOPEless.Bancho.Objects
 {
-    public class BanchoBeatmapInfoRequest : IBanchoSerializable
+    public class BanchoBeatmapInfoRequest : ISerializable
     {
         //could be done better, I think
         public List<string> Filenames => _filenames.Value;
@@ -22,13 +22,13 @@ namespace HOPEless.Bancho.Objects
             _beatmapIds = new BanchoIntList(beatmapIds);
         }
 
-        public void ReadFromStream(CustomBinaryReader r)
+        public void ReadFromStream(SerializationReader r)
         {
             _filenames.ReadFromStream(r);
             _beatmapIds.ReadFromStream(r);
         }
 
-        public void WriteToStream(CustomBinaryWriter w)
+        public void WriteToStream(SerializationWriter w)
         {
             _filenames.WriteToStream(w);
             _beatmapIds.WriteToStream(w);

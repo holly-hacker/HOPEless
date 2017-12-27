@@ -1,9 +1,11 @@
 ﻿using HOPEless.Extensions;
 using HOPEless.osu;
+using osu.Shared;
+using osu.Shared.Serialization;
 
 namespace HOPEless.Bancho.Objects
 {
-    public class BanchoUserData : IBanchoSerializable
+    public class BanchoUserData : ISerializable
     {
         public int UserId;
         public BanchoUserStatus Status = new BanchoUserStatus();
@@ -17,7 +19,7 @@ namespace HOPEless.Bancho.Objects
         public BanchoUserData() { }
         public BanchoUserData(byte[] data) => this.Populate(data);
 
-        public void ReadFromStream(CustomBinaryReader r)
+        public void ReadFromStream(SerializationReader r)
         {
             UserId = r.ReadInt32();
             Status.ReadFromStream(r);
@@ -29,7 +31,7 @@ namespace HOPEless.Bancho.Objects
             Performance = r.ReadInt16();
         }
 
-        public void WriteToStream(CustomBinaryWriter w)
+        public void WriteToStream(SerializationWriter w)
         {
             w.Write(UserId);
             Status.WriteToStream(w);
@@ -42,29 +44,29 @@ namespace HOPEless.Bancho.Objects
         }
     }
 
-    public class BanchoUserStatus : IBanchoSerializable
+    public class BanchoUserStatus : ISerializable
     {
         public BanchoAction Action;
         public string ActionText;
         public string BeatmapChecksum;
         public Mods CurrentMods;
-        public PlayModes PlayMode;
+        public GameMode PlayMode;
         public int BeatmapId;
         
         public BanchoUserStatus() { }
         public BanchoUserStatus(byte[] data) => this.Populate(data);
 
-        public void ReadFromStream(CustomBinaryReader r)
+        public void ReadFromStream(SerializationReader r)
         {
             Action = (BanchoAction)r.ReadByte();
             ActionText = r.ReadString();
             BeatmapChecksum = r.ReadString();
             CurrentMods = (Mods)r.ReadUInt32();
-            PlayMode = (PlayModes)r.ReadByte();
+            PlayMode = (GameMode)r.ReadByte();
             BeatmapId = r.ReadInt32();
         }
 
-        public void WriteToStream(CustomBinaryWriter w)
+        public void WriteToStream(SerializationWriter w)
         {
             w.Write((byte)Action);
             w.Write(ActionText);
@@ -75,15 +77,15 @@ namespace HOPEless.Bancho.Objects
         }
     }
 
-    public class BanchoUserPresence : IBanchoSerializable
+    public class BanchoUserPresence : ISerializable
     {
         public int UserId;
         public bool UsesOsuClient;
         public string Username;
         public int Timezone;
         public byte CountryCode;
-        public UserPermissions Permissions;
-        public PlayModes PlayMode;
+        public PlayerRank Permissions;
+        public GameMode PlayMode;
         public float Longitude;
         public float Latitude;
         public int Rank;
@@ -91,7 +93,7 @@ namespace HOPEless.Bancho.Objects
         public BanchoUserPresence() { }
         public BanchoUserPresence(byte[] data) => this.Populate(data);
 
-        public void ReadFromStream(CustomBinaryReader r)
+        public void ReadFromStream(SerializationReader r)
         {
             UserId = r.ReadInt32();
             if (UserId < 0) UserId = -UserId;
@@ -102,15 +104,15 @@ namespace HOPEless.Bancho.Objects
             CountryCode = r.ReadByte();
 
             byte permissionPlaymodeBitfield = r.ReadByte();
-            Permissions = (UserPermissions)(permissionPlaymodeBitfield & 0b00011111);
-            PlayMode = (PlayModes)((permissionPlaymodeBitfield & 0b11100000) >> 5);
+            Permissions = (PlayerRank)(permissionPlaymodeBitfield & 0b00011111);
+            PlayMode = (GameMode)((permissionPlaymodeBitfield & 0b11100000) >> 5);
 
             Longitude = r.ReadSingle();
             Latitude = r.ReadSingle();
             Rank = r.ReadInt32();
         }
 
-        public void WriteToStream(CustomBinaryWriter w)
+        public void WriteToStream(SerializationWriter w)
         {
             w.Write(UsesOsuClient ? UserId : -UserId);
             w.Write(Username);
@@ -123,7 +125,7 @@ namespace HOPEless.Bancho.Objects
         }
     }
 
-    public class BanchoUserQuit : IBanchoSerializable
+    public class BanchoUserQuit : ISerializable
     {
         public int UserId;
         public UserQuitType QuitType;
@@ -138,13 +140,13 @@ namespace HOPEless.Bancho.Objects
             QuitType = quitType;
         }
 
-        public void ReadFromStream(CustomBinaryReader r)
+        public void ReadFromStream(SerializationReader r)
         {
             UserId = r.ReadInt32();
             QuitType = (UserQuitType)r.ReadByte();
         }
 
-        public void WriteToStream(CustomBinaryWriter w)
+        public void WriteToStream(SerializationWriter w)
         {
             w.Write(UserId);
             w.Write((byte)QuitType);

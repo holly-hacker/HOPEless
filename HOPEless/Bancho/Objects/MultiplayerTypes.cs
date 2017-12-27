@@ -1,9 +1,11 @@
 ﻿using HOPEless.Extensions;
 using HOPEless.osu;
+using osu.Shared;
+using osu.Shared.Serialization;
 
 namespace HOPEless.Bancho.Objects
 {
-    public class BanchoMultiplayerMatch : IBanchoSerializable
+    public class BanchoMultiplayerMatch : ISerializable
     {
         public string GameName;
         public int MatchId;
@@ -20,7 +22,7 @@ namespace HOPEless.Bancho.Objects
         public bool InProgress;
         public Mods ActiveMods;
         public int HostId;
-        public PlayModes PlayMode;
+        public GameMode PlayMode;
         public MultiWinConditions MultiWinCondition;
         public MultiTeamTypes MultiTeamType;
         public MultiSpecialModes SpecialModes;
@@ -31,7 +33,7 @@ namespace HOPEless.Bancho.Objects
         public BanchoMultiplayerMatch() { }
         public BanchoMultiplayerMatch(byte[] data) => this.Populate(data);
 
-        public void ReadFromStream(CustomBinaryReader r)
+        public void ReadFromStream(SerializationReader r)
         {
             MatchId = r.ReadUInt16();
             InProgress = r.ReadBoolean();
@@ -54,7 +56,7 @@ namespace HOPEless.Bancho.Objects
 
             HostId = r.ReadInt32();
 
-            PlayMode = (PlayModes)r.ReadByte();
+            PlayMode = (GameMode)r.ReadByte();
 
             MultiWinCondition = (MultiWinConditions)r.ReadByte();
             MultiTeamType = (MultiTeamTypes)r.ReadByte();
@@ -70,7 +72,7 @@ namespace HOPEless.Bancho.Objects
             Seed = r.ReadInt32();
         }
 
-        public void WriteToStream(CustomBinaryWriter w)
+        public void WriteToStream(SerializationWriter w)
         {
             //write basic info
             w.Write((short)MatchId);

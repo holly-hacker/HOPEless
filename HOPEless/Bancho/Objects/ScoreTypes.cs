@@ -2,10 +2,11 @@
 using System.Linq;
 using HOPEless.Extensions;
 using HOPEless.osu;
+using osu.Shared.Serialization;
 
 namespace HOPEless.Bancho.Objects
 {
-    public class BanchoScoreFrame : IBanchoSerializable
+    public class BanchoScoreFrame : ISerializable
     {
         public int Time;
         public byte Id;
@@ -28,7 +29,7 @@ namespace HOPEless.Bancho.Objects
         public BanchoScoreFrame() { }
         public BanchoScoreFrame(byte[] data) => this.Populate(data);
 
-        public void ReadFromStream(CustomBinaryReader r)
+        public void ReadFromStream(SerializationReader r)
         {
             Time = r.ReadInt32();
             Id = r.ReadByte();
@@ -49,7 +50,7 @@ namespace HOPEless.Bancho.Objects
             BonusPortion = UsingScoreV2 ? r.ReadDouble() : 0;
         }
 
-        public void WriteToStream(CustomBinaryWriter w)
+        public void WriteToStream(SerializationWriter w)
         {
             w.Write(Time);
             w.Write(Id);
@@ -73,7 +74,7 @@ namespace HOPEless.Bancho.Objects
         }
     }
 
-    public class BanchoReplayFrame : IBanchoSerializable
+    public class BanchoReplayFrame : ISerializable
     {
         public float MouseX;
         public float MouseY;
@@ -91,7 +92,7 @@ namespace HOPEless.Bancho.Objects
             Time = time;
         }
 
-        public void ReadFromStream(CustomBinaryReader r)
+        public void ReadFromStream(SerializationReader r)
         {
             ButtonState = (ButtonState)r.ReadByte();
             r.ReadByte();  //unused byte, always 0?
@@ -100,7 +101,7 @@ namespace HOPEless.Bancho.Objects
             Time = r.ReadInt32();
         }
 
-        public void WriteToStream(CustomBinaryWriter w)
+        public void WriteToStream(SerializationWriter w)
         {
             w.Write((byte)ButtonState);
             w.Write((byte)0);
@@ -110,7 +111,7 @@ namespace HOPEless.Bancho.Objects
         }
     }
 
-    public class BanchoReplayFrameBundle : IBanchoSerializable
+    public class BanchoReplayFrameBundle : ISerializable
     {
         public List<BanchoReplayFrame> ReplayFrames;
         public BanchoScoreFrame CurrentScoreState;
@@ -134,7 +135,7 @@ namespace HOPEless.Bancho.Objects
             ExtraData = extra;
         }
 
-        public void ReadFromStream(CustomBinaryReader r)
+        public void ReadFromStream(SerializationReader r)
         {
             ExtraData = r.ReadInt32();
 
@@ -151,7 +152,7 @@ namespace HOPEless.Bancho.Objects
             (CurrentScoreState = new BanchoScoreFrame()).ReadFromStream(r);
         }
 
-        public void WriteToStream(CustomBinaryWriter w)
+        public void WriteToStream(SerializationWriter w)
         {
             w.Write(ExtraData);
             w.Write((ushort)ReplayFrames.Count);

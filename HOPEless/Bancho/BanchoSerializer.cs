@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using HOPEless.osu;
+using osu.Shared.Serialization;
 
 namespace HOPEless.Bancho
 {
@@ -8,16 +8,16 @@ namespace HOPEless.Bancho
     {
         public static IEnumerable<BanchoPacket> DeserializePackets(byte[] bytes)
         {
-            using (MemoryStream stream = new MemoryStream(bytes))
-            using (var r = new CustomBinaryReader(stream))
+            using (var stream = new MemoryStream(bytes))
+            using (var r = new SerializationReader(stream))
                 while (stream.Position != stream.Length)
                     yield return new BanchoPacket(r);
         }
 
         public static byte[] Serialize(IEnumerable<BanchoPacket> packets)
         {
-            using (MemoryStream stream = new MemoryStream()) {
-                using (var w = new CustomBinaryWriter(stream))
+            using (var stream = new MemoryStream()) {
+                using (var w = new SerializationWriter(stream))
                     foreach (var packet in packets)
                         packet.WriteToStream(w);
 
