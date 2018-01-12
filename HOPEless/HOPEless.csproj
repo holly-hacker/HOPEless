@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\osu.Shared\osu.Shared\osu.Shared.csproj" />
+    <PackageReference Include="osu.Shared" Version="1.0.2" />
   </ItemGroup>
 
 </Project>
