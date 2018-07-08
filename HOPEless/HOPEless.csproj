@@ -3,16 +3,12 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.0;net35</TargetFrameworks>
     <PackageId>HoLLy.osu.HOPEless</PackageId>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
-    <Version>2.0.0</Version>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <FileVersion>2.0.1.0</FileVersion>
+    <Version>2.0.1</Version>
     <Authors>HoLLy</Authors>
     <Company>HoLLy</Company>
-    <PackageReleaseNotes>- BREAKING: Rename BanchoReplayFrameBundle's SpectatedPlayerId to ExtraData
-- Give Bancho* objects meaningful constructors
-- Update some of the packet documentation
-- Use osu.Shared for common types
-- Bugfixes</PackageReleaseNotes>
+    <PackageReleaseNotes>Update osu.Shared dependency to fix breaking bug</PackageReleaseNotes>
     <Description>A library to handle osu!bancho packets.</Description>
     <Copyright>Copyright © HoLLy 2018</Copyright>
     <PackageLicenseUrl>https://github.com/HoLLy-HaCKeR/HOPEless/blob/master/LICENSE.md</PackageLicenseUrl>
@@ -36,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="osu.Shared" Version="1.0.2" />
+    <PackageReference Include="osu.Shared" Version="1.0.3" />
   </ItemGroup>
 
 </Project>
