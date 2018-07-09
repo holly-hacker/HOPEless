@@ -11,7 +11,7 @@ namespace HOPEless.Bancho.Objects
         public int MatchId;
         public MultiTypes MultiType;
 
-        public MutiSlotStatus[] MutiSlotStatus = new MutiSlotStatus[Constants.MultiplayerMaxPlayers];
+        public MultiSlotStatus[] MultiSlotStatus = new MultiSlotStatus[Constants.MultiplayerMaxPlayers];
         public int[] SlotId = new int[Constants.MultiplayerMaxPlayers];
         public SlotTeams[] SlotTeam = new SlotTeams[Constants.MultiplayerMaxPlayers];
         public Mods[] SlotMods = new Mods[Constants.MultiplayerMaxPlayers];
@@ -46,13 +46,13 @@ namespace HOPEless.Bancho.Objects
             BeatmapChecksum = r.ReadString();
 
             for (int i = 0; i < Constants.MultiplayerMaxPlayers; i++)
-                MutiSlotStatus[i] = (MutiSlotStatus)r.ReadByte();
+                MultiSlotStatus[i] = (MultiSlotStatus)r.ReadByte();
 
             for (int i = 0; i < Constants.MultiplayerMaxPlayers; i++)
                 SlotTeam[i] = (SlotTeams)r.ReadByte();
 
             for (int i = 0; i < Constants.MultiplayerMaxPlayers; i++)
-                SlotId[i] = (MutiSlotStatus[i] & (MutiSlotStatus)0b01111100) > 0 ? r.ReadInt32() : -1;
+                SlotId[i] = (MultiSlotStatus[i] & (MultiSlotStatus)0b01111100) > 0 ? r.ReadInt32() : -1;
 
             HostId = r.ReadInt32();
 
@@ -87,7 +87,7 @@ namespace HOPEless.Bancho.Objects
 
             //write each slot's status
             for (int i = 0; i < Constants.MultiplayerMaxPlayers; i++)
-                w.Write((byte)MutiSlotStatus[i]);
+                w.Write((byte)MultiSlotStatus[i]);
 
             //write each slot's team
             for (int i = 0; i < Constants.MultiplayerMaxPlayers; i++)
@@ -95,7 +95,7 @@ namespace HOPEless.Bancho.Objects
 
             //write each used slot's player id
             for (int i = 0; i < Constants.MultiplayerMaxPlayers; i++)
-                if ((MutiSlotStatus[i] & (MutiSlotStatus)0b1111100) > 0)
+                if ((MultiSlotStatus[i] & (MultiSlotStatus)0b1111100) > 0)
                     w.Write(SlotId[i]);
 
             //write id of the host, so someone can have the crown!

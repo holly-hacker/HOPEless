@@ -25,7 +25,7 @@ namespace HOPEless.osu
     }
 
     [Flags]
-    public enum MutiSlotStatus
+    public enum MultiSlotStatus
     {
         Open = 1,
         Locked = 2,
