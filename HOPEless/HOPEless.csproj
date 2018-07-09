@@ -11,11 +11,15 @@
     <Description>A library to handle osu!bancho packets.</Description>
     <Authors>HoLLy</Authors>
     <Company>HoLLy</Company>
-    <Version>2.0.1</Version>
-    <FileVersion>2.0.1.0</FileVersion>
-    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <Version>2.1</Version>
+    <FileVersion>2.1.0.0</FileVersion>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
     <Copyright>Copyright © HoLLy 2018</Copyright>
-    <PackageReleaseNotes>Update osu.Shared dependency to fix breaking bug</PackageReleaseNotes>
+    <PackageReleaseNotes>- Add BanchoBeatmapInfoReply and BanchoMultiplayerJoin ISerializables
+- Include XMLDOC in NuGet package
+- Clean up PacketType docs
+- Add overloads using Streams to BanchoSerializer
+- Fix a type on MultiSlotStatus</PackageReleaseNotes>
     <RepositoryType>Git</RepositoryType>
     <RepositoryUrl>https://github.com/HoLLy-HaCKeR/HOPEless/</RepositoryUrl>
     <PackageProjectUrl>https://github.com/HoLLy-HaCKeR/HOPEless/</PackageProjectUrl>
