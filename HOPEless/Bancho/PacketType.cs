@@ -242,9 +242,8 @@ namespace HOPEless.Bancho
         ServerMultiMatchJoinFail,
 
         /// <summary>
-        /// Tell bancho we changed to a different slot. The parameter is the
-        /// slot index. TODO: zero-based?
-        /// <para>Data: <see cref="BanchoInt"/></para>
+        /// Tell bancho we changed to a different slot. The parameter is the zero-based slot index.
+        /// <para> Data: <see cref="BanchoInt"/> </para>
         /// </summary>
         ClientMultiSlotChange,
 
@@ -254,7 +253,7 @@ namespace HOPEless.Bancho
         ClientMultiReady,
 
         /// <summary>
-        /// Tell bancho we locked a slot. The parameter is the slot index. TODO
+        /// Tell bancho we locked a slot. The parameter is the zero-based slot index.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientMultiSlotLock,
@@ -326,13 +325,12 @@ namespace HOPEless.Bancho
         ClientMultiChangeMods,
 
         /// <summary>
-        /// TODO: inspect
+        /// Tells the server that we have fully loaded the beatmap and are ready to play.
         /// </summary>
         ClientMultiMatchLoadComplete,
 
         /// <summary>
-        /// Tells the client that all players are loaded.
-        /// TODO: some proper information instead of this vague bullshit
+        /// Tells the client that all players have sent <seealso cref="ClientMultiMatchLoadComplete"/>
         /// </summary>
         ServerMultiAllPlayersLoaded,
 
@@ -452,7 +450,6 @@ namespace HOPEless.Bancho
 
         /// <summary>
         /// Tell client what permissions they have. Response to login packet. 
-        /// TODO: check if parameter is just permissions, or permissions & mode
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerUserPermissions,
@@ -507,27 +504,26 @@ namespace HOPEless.Bancho
         ClientChatChannelLeave,
 
         /// <summary>
-        /// Ask the server for a list of players.
-        /// <para>Expected response: TODO</para>
+        /// Ask the server for a list of players. This request is ignored by the server and nothing is sent in response.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientRequestPlayerList,
 
         /// <summary>
-        /// Unused, originally used to trigger spyware (such as taking desktop
-        /// screenshot, uploading files, uploading process list)
+        /// Unused, originally used to trigger spyware (such as taking desktop screenshot, uploading files, uploading
+        /// process list) but this logic has been removed.
         /// </summary>
         ServerUnused8,
 
         /// <summary>
-        /// Another player has requested a skip. The parameter is said player's
+        /// Another player has requested a skip. The parameter is said players
         /// user ID.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerMultiSkipRequestOther,
 
         /// <summary>
-        /// The same as /away in IRC. TODO: proper
+        /// Equivalent of /away &lt;message&gt; in IRC.
         /// <para>Data: <see cref="BanchoString"/></para>
         /// </summary>
         ClientAway,
@@ -603,22 +599,23 @@ namespace HOPEless.Bancho
         ClientMultiMatchInfoRequest,
 
         /// <summary>
-        /// Someone got muted.
+        /// Tells the client that somebody is muted.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ServerUserSilenced,
 
         /// <summary>
-        /// TODO
+        /// Tells the client about a single user being online. Normally only sent in the login response.
         /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
-        ServerUserPresenceSingle,   //TODO: more informative name?
+        ServerUserPresenceSingle,
 
         /// <summary>
-        /// Collection version of <seealso cref="ServerUserPresenceSingle"/>
+        /// Tells the client about a single user being online. Collection version of
+        /// <seealso cref="ServerUserPresenceSingle"/>.
         /// <para>Data: <see cref="BanchoIntList"/></para>
         /// </summary>
-        ServerUserPresenceBundle,   //TODO: more informative name?
+        ServerUserPresenceBundle,
 
         /// <summary>
         /// Request presence information from the server.
@@ -627,8 +624,8 @@ namespace HOPEless.Bancho
         ClientUserPresenceRequest,
 
         /// <summary>
-        /// TODO
-        /// <para>Data: <see cref="BanchoInt"/></para>
+        /// Asks the server for presence information on all 
+        /// <para>Data: <see cref="BanchoInt"/> (Current game time, ignored by server)</para>
         /// </summary>
         ClientUserPresenceRequestAll,
 
@@ -670,7 +667,7 @@ namespace HOPEless.Bancho
         /// Send the client a spooky message.
         /// <para>Data: <see cref="BanchoString"/></para>
         /// </summary>
-        ServerRtx,                  //fancy message
+        ServerRtx,
 
         /// <summary>
         /// Tell the server we quit the multi match.
@@ -678,21 +675,22 @@ namespace HOPEless.Bancho
         ClientMultiAbort,
 
         /// <summary>
-        /// TODO
+        /// Tells the client they will be switched to a different server, for tournaments
+        /// <para>Data: <see cref="BanchoString"/></para>
         /// </summary>
         BanchoSwitchTourneyServer,
 
         /// <summary>
         /// Tell the server we want to join some multiplayer channel.
         /// Tournament only.
-        /// TODO
+        /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
         ClientMultiJoinChannel,
 
         /// <summary>
         /// Tell the server we left some multiplayer channel. Tournament only.
-        /// TODO
+        /// <para>Data: <see cref="BanchoInt"/></para>
         /// </summary>
-        ClientMultiLeaveChannel //should be #109
+        ClientMultiLeaveChannel // This should be packet 109!
     }
 }
