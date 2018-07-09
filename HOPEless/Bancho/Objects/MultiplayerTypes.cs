@@ -5,6 +5,32 @@ using osu.Shared.Serialization;
 
 namespace HOPEless.Bancho.Objects
 {
+    public class BanchoMultiplayerJoin : ISerializable
+    {
+        public int MatchId;
+        public string Password;
+
+        public BanchoMultiplayerJoin() { }
+        public BanchoMultiplayerJoin(byte[] data) => this.Populate(data);
+        public BanchoMultiplayerJoin(int matchId, string password)
+        {
+            MatchId = matchId;
+            Password = password;
+        }
+
+        public void ReadFromStream(SerializationReader r)
+        {
+            MatchId = r.ReadInt32();
+            Password = r.ReadString();
+        }
+
+        public void WriteToStream(SerializationWriter w)
+        {
+            w.Write(MatchId);
+            w.Write(Password);
+        }
+    }
+
     public class BanchoMultiplayerMatch : ISerializable
     {
         public string GameName;

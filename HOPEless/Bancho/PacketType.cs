@@ -209,7 +209,7 @@ namespace HOPEless.Bancho
 
         /// <summary>
         /// Tell bancho we want to join a match.
-        /// <para>Data: TODO create BanchoMultiplayerJoin, which is int32 id, string pass</para>
+        /// <para>Data: <see cref="BanchoMultiplayerJoin"/></para>
         /// </summary>
         ClientMultiMatchJoin,
 
@@ -436,7 +436,7 @@ namespace HOPEless.Bancho
 
         /// <summary>
         /// Respond to a <seealso cref="ClientBeatmapInfoRequest"/> packet.
-        /// <para>Data: TODO create BanchoBeatmapInfoReply</para>
+        /// <para>Data: <see cref="BanchoBeatmapInfoReply"/></para>
         /// </summary>
         ServerBeatmapInfoReply,
 
