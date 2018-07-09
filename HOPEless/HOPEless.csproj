@@ -19,7 +19,7 @@
 - Include XMLDOC in NuGet package
 - Clean up PacketType docs
 - Add overloads using Streams to BanchoSerializer
-- Fix a type on MultiSlotStatus</PackageReleaseNotes>
+- Fix a typo in MultiSlotStatus</PackageReleaseNotes>
     <RepositoryType>Git</RepositoryType>
     <RepositoryUrl>https://github.com/HoLLy-HaCKeR/HOPEless/</RepositoryUrl>
     <PackageProjectUrl>https://github.com/HoLLy-HaCKeR/HOPEless/</PackageProjectUrl>
