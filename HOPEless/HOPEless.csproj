@@ -1,37 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+  <PropertyGroup Label="Project">
     <TargetFrameworks>netstandard1.0;net35</TargetFrameworks>
-    <PackageId>HoLLy.osu.HOPEless</PackageId>
-    <AssemblyVersion>2.0.1.0</AssemblyVersion>
-    <FileVersion>2.0.1.0</FileVersion>
-    <Version>2.0.1</Version>
-    <Authors>HoLLy</Authors>
-    <Company>HoLLy</Company>
-    <PackageReleaseNotes>Update osu.Shared dependency to fix breaking bug</PackageReleaseNotes>
-    <Description>A library to handle osu!bancho packets.</Description>
-    <Copyright>Copyright © HoLLy 2018</Copyright>
-    <PackageLicenseUrl>https://github.com/HoLLy-HaCKeR/HOPEless/blob/master/LICENSE.md</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/HoLLy-HaCKeR/HOPEless/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/HoLLy-HaCKeR/HOPEless/</RepositoryUrl>
-    <RepositoryType>Git</RepositoryType>
-    <PackageTags>osu! osu bancho</PackageTags>
+    <LangVersion>7.3</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <LangVersion>7.1</LangVersion>
+  <PropertyGroup Label="Metadata and NuGet">
+    <PackageId>HoLLy.osu.HOPEless</PackageId>
+    <Description>A library to handle osu!bancho packets.</Description>
+    <Authors>HoLLy</Authors>
+    <Company>HoLLy</Company>
+    <Version>2.0.1</Version>
+    <FileVersion>2.0.1.0</FileVersion>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <Copyright>Copyright © HoLLy 2018</Copyright>
+    <PackageReleaseNotes>Update osu.Shared dependency to fix breaking bug</PackageReleaseNotes>
+    <RepositoryType>Git</RepositoryType>
+    <RepositoryUrl>https://github.com/HoLLy-HaCKeR/HOPEless/</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/HoLLy-HaCKeR/HOPEless/</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/HoLLy-HaCKeR/HOPEless/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageTags>osu! osu bancho</PackageTags>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <LangVersion>7.1</LangVersion>
+  <PropertyGroup Label="Release-only Properties" Condition="'$(Configuration)'=='Release'">
+    <DocumentationFile>bin\Release\$(TargetFramework)\HOPEless.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
-  <ItemGroup>
+  <ItemGroup Label="Package References">
     <PackageReference Include="osu.Shared" Version="1.0.3" />
   </ItemGroup>
 
