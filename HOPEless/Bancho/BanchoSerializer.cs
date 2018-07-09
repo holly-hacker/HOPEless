@@ -9,6 +9,11 @@ namespace HOPEless.Bancho
         public static IEnumerable<BanchoPacket> DeserializePackets(byte[] bytes)
         {
             using (var stream = new MemoryStream(bytes))
+                return DeserializePackets(stream);
+        }
+
+        public static IEnumerable<BanchoPacket> DeserializePackets(Stream stream)
+        {
             using (var r = new SerializationReader(stream))
                 while (stream.Position != stream.Length)
                     yield return new BanchoPacket(r);
@@ -16,13 +21,16 @@ namespace HOPEless.Bancho
 
         public static byte[] Serialize(IEnumerable<BanchoPacket> packets)
         {
-            using (var stream = new MemoryStream()) {
-                using (var w = new SerializationWriter(stream))
-                    foreach (var packet in packets)
-                        packet.WriteToStream(w);
+            return Serialize(packets, new MemoryStream()).ToArray();
+        }
 
-                return stream.ToArray();
-            }
+        public static T Serialize<T>(IEnumerable<BanchoPacket> packets, T stream) where T : Stream
+        {
+            using (var w = new SerializationWriter(stream))
+                foreach (var packet in packets)
+                    packet.WriteToStream(w);
+
+            return stream;
         }
     }
 }
